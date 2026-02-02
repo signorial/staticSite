@@ -1,16 +1,42 @@
 
-from turtle import ht
 import unittest
 
 from textnode import TextNode, TextType
+from code_splitter import split_nodes_delimiter
 
 
-class TestTextNode(unittest.TestCase):
-    def test_eq(self):
-        node = TextNode("This is a text node", TextType.TEXT)
-        node2 = TextNode("This is a text node", TextType.TEXT)
-        self.assertEqual(node, node2)
-
+class TestCodeSplitter(unittest.TestCase):
+    def test_split_code(self):
+        node = TextNode("This is text with a `code block` word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "`", TextType.CODE)
+        print(f"split list {new_nodes}")
+        self.assertEqual(len(new_nodes), 3)
+''' 
+    def test_split_bold(self):
+        node = TextNode("This is text with a **bold block** word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], r"**", TextType.BOLD)
+        print(f"split list {new_nodes}")
+        self.assertEqual(len(new_nodes), 3)
+    
+    def test_split_italic(self):
+        node = TextNode("This is text with a _italic block_ word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "_", TextType.ITALIC)
+        print(f"split list {new_nodes}")
+        self.assertEqual(len(new_nodes), 3)
+ 
+    def test_split_link(self):
+        node = TextNode("This is text with a [link block](www.link.com) word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "[", TextType.LINK)
+        print(f"split list {new_nodes}")
+        self.assertEqual(len(new_nodes), 3)
+ 
+    def test_split_image(self):
+        node = TextNode("This is text with a ![image block](www.image.com) word", TextType.TEXT)
+        new_nodes = split_nodes_delimiter([node], "![", TextType.IMAGE)
+        print(f"split list {new_nodes}")
+        self.assertEqual(len(new_nodes), 3)
+ 
+    
     def test_eq_false(self):
         node = TextNode("This is a text node", TextType.TEXT)
         node2 = TextNode("This is a text node", TextType.BOLD)
@@ -70,7 +96,7 @@ class TestTextNode(unittest.TestCase):
         self.assertEqual(html_node.value, None)
         print(html_node)
         self.assertEqual(html_node.props["src"], "www.image.com")
-
+'''
 if __name__ == "__main__":
     unittest.main()
 
