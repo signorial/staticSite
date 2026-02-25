@@ -1,5 +1,3 @@
-from hmac import new
-from pydoc import text
 from textnode import TextNode, TextType
 import re
 
@@ -114,8 +112,11 @@ def text_to_textnodes(text):
     output=split_nodes_delimiter(old_nodes=output,delimiter="`",text_type=TextType.CODE)
     output=split_nodes_image(old_nodes=output)
     output=split_nodes_link(old_nodes=output)
-    print("-------------------------------------------------------------")
-    for o in output:
-        print(f"output:  {o}")
-    print("-------------------------------------------------------------")
+    #print("-------------------------------------------------------------")
+    #for o in output:
+    #    print(f"output:  {o}")
+    #print("-------------------------------------------------------------")
     return output
+
+
+

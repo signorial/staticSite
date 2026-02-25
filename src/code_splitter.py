@@ -1,8 +1,5 @@
-from ast import Continue
-from enum import Enum
 from textnode import TextNode, TextType
 import re
-import pdb
 
 
 

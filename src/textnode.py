@@ -29,38 +29,38 @@ class TextNode:
         return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
 
 
-    def text_node_to_html_node(self):
-        match self.text_type:
-            case TextType.TEXT:
-                return HTMLNode(tag=None,
-                                value=self.text,
-                                children=None,
-                                props=None)
-            case TextType.BOLD:
-                return HTMLNode(tag="b",
-                                value=self.text,
-                                children=None,
-                                props=None)
-            case TextType.ITALIC:
-                return HTMLNode(tag="i",
-                                value=self.text,
-                                children=None,
-                                props=None)
-            case TextType.CODE:
-                return HTMLNode(tag="code",
-                                value=self.text,
-                                children=None,
-                                props=None)
-            case TextType.LINK:
-                return HTMLNode(tag="a",
-                                value=self.text,
-                                children=None,
-                                props={"href":self.url})
-            case TextType.IMAGE:
-                return HTMLNode(tag="img",
-                                value=None,
-                                children=None,
-                                props={"src":self.url,"alt":self.text})
-            case _:
-                raise ValueError("not a valid text_type")
+def text_node_to_html_node(self):
+    match self.text_type:
+        case TextType.TEXT:
+            return HTMLNode(tag=None,
+                            value=self.text,
+                            children=None,
+                            props=None)
+        case TextType.BOLD:
+            return HTMLNode(tag="b",
+                            value=self.text,
+                            children=None,
+                            props=None)
+        case TextType.ITALIC:
+            return HTMLNode(tag="i",
+                            value=self.text,
+                            children=None,
+                            props=None)
+        case TextType.CODE:
+            return HTMLNode(tag="code",
+                            value=self.text,
+                            children=None,
+                            props=None)
+        case TextType.LINK:
+            return HTMLNode(tag="a",
+                            value=self.text,
+                            children=None,
+                            props={"href":self.url})
+        case TextType.IMAGE:
+            return HTMLNode(tag="img",
+                            value=None,
+                            children=None,
+                            props={"src":self.url,"alt":self.text})
+        case _:
+            raise ValueError("not a valid text_type")
 
