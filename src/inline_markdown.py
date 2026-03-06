@@ -26,11 +26,14 @@ def split_nodes_delimiter(old_nodes, delimiter, text_type):
 
 
 def extract_markdown_images(text):
-    matches = re.findall(r"!\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
+    pattern = r"!\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(pattern, text)
     return matches
 
+
 def extract_markdown_links(text):
-    matches = re.findall(r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)", text)
+    pattern = r"(?<!!)\[([^\[\]]*)\]\(([^\(\)]*)\)"
+    matches = re.findall(pattern, text)
     return matches
 
 def split_nodes_image(old_nodes):
@@ -83,40 +86,14 @@ def split_nodes_link(old_nodes):
             new_nodes.append(TextNode(original_text, TextType.TEXT))
     return new_nodes
 
-
-
-def redo_split_nodes_image(old_nodes):
-    new_nodes=[]
-    for old_node in old_nodes:
-        old_text = old_node.text
-        images = extract_markdown_images(old_text)
-        for label,url in images:
-            delimiter = f"![{label}]({url})"
-            sections = old_text.split(delimiter,1)
-            if sections[0] !="":
-                new_nodes.append(TextNode(text=sections[0],text_type=TextType.TEXT))
-            new_nodes.append(TextNode(text=label,text_type=TextType.IMAGE,url=url))
-            old_text=sections[1]
-    #print("-------------------------------------------------------------")
-        #for new_node in new_nodes:
-    #    print(f"new_node:  {new_node}")
-    #print("-------------------------------------------------------------")
-    return new_nodes
-
-
 def text_to_textnodes(text):
-    output= [TextNode(text=text,text_type=TextType.TEXT)]
-    #print(output)
-    output=split_nodes_delimiter(old_nodes=output,delimiter="**",text_type=TextType.BOLD)
-    output=split_nodes_delimiter(old_nodes=output,delimiter="_",text_type=TextType.ITALIC)
-    output=split_nodes_delimiter(old_nodes=output,delimiter="`",text_type=TextType.CODE)
-    output=split_nodes_image(old_nodes=output)
-    output=split_nodes_link(old_nodes=output)
-    #print("-------------------------------------------------------------")
-    #for o in output:
-    #    print(f"output:  {o}")
-    #print("-------------------------------------------------------------")
-    return output
+    nodes = [TextNode(text, TextType.TEXT)]
+    nodes = split_nodes_delimiter(nodes, "**", TextType.BOLD)
+    nodes = split_nodes_delimiter(nodes, "_", TextType.ITALIC)
+    nodes = split_nodes_delimiter(nodes, "`", TextType.CODE)
+    nodes = split_nodes_image(nodes)
+    nodes = split_nodes_link(nodes)
+    return nodes
 
 
 
