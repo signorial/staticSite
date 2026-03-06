@@ -19,7 +19,7 @@ def main():
 
 
 
-    print("Deleting public directory...")
+    print("Deleting public/docs directory...")
     if os.path.exists(dir_path_public):
         shutil.rmtree(dir_path_public)
 
